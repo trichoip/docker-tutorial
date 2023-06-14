@@ -1,0 +1,14 @@
+services:
+  mysql:
+    build:
+      context: .
+      # nếu không có dockerfile: thì mặc định lấy Dockerfile
+      dockerfile: Dockerfile.mysql
+      # target là gọi Stage trong Dockerfile
+      # target: targetStage
+    image: mysqlapp
+    ports:
+      - 3306:3306
+    environment:
+        MYSQL_ROOT_PASSWORD: secret
+        MYSQL_DATABASE: todos

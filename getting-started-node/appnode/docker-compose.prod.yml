@@ -1,0 +1,37 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile 
+      # target là gọi Stage trong Dockerfile
+      # target: targetStage
+    image: nodeappapp:latest
+    ports:
+      - 3000:3000
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_USER: root
+      MYSQL_PASSWORD: secret
+      MYSQL_DB: todos
+    networks:
+      - mynetwork
+    depends_on:
+      - mysql
+  mysql:
+      image: dockerracdockerrac/mysqldata
+      volumes:
+        - todo-mysql-data:/var/lib/mysql
+      ports:
+      - 3306:3306
+      environment:
+        MYSQL_ROOT_PASSWORD: secret
+        MYSQL_DATABASE: todos
+      networks:
+      - mynetwork
+volumes:
+  todo-mysql-data:
+networks:
+  mynetwork:
+# nếu không có cấu hình networks thì nó tự tạo networks default
+
+

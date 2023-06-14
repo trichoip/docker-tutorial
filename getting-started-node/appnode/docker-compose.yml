@@ -1,0 +1,52 @@
+# xác định danh sách các dịch vụ (hoặc vùng chứa) mà muốn chạy như một phần của ứng dụng, tên services là tên folder chứa file này
+services:
+# có thể chọn bất kỳ tên nào cho dịch vụ, Tên sẽ tự động trở thành --network alias app
+  app:
+    image: node:18-alpine
+    command: sh -c "yarn install && yarn run dev"
+    # neu co loi thi restart (on-failure, always,...)
+    restart: always
+    ports:
+      - 3000:3000
+    working_dir: /app
+    volumes:
+      - ./:/app
+    environment:
+    # environment là biến config trong project, khi chạy thì docker tự động truyền vào project
+      MYSQL_HOST: mysql
+      MYSQL_USER: root
+      MYSQL_PASSWORD: secret
+      MYSQL_DB: todos
+    # app phụ thuọc vào mysql thì docker sẽ chạy mysql trước rùi mới chạy app
+    depends_on:
+      - mysql
+# có thể chọn bất kỳ tên nào cho dịch vụ, Tên sẽ tự động trở thành --network alias mysql
+  mysql:
+    image: mysql:8.0
+    volumes:
+      - todo-mysql-data:/var/lib/mysql
+      - ./mysql.sql:/docker-entrypoint-initdb.d/mysql.sql
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: todos
+
+volumes:
+  todo-mysql-data:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

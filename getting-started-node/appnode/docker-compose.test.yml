@@ -1,0 +1,25 @@
+services:
+  app:
+    image: dockerracdockerrac/appnode
+    restart: always
+    ports:
+      - 3000:3000
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_USER: root
+      MYSQL_PASSWORD: secret
+      MYSQL_DB: todos
+  mysql:
+      image: dockerracdockerrac/mysqldata
+      volumes:
+        - todo-mysql-data:/var/lib/mysql
+      ports:
+      - 3306:3306
+      environment:
+        MYSQL_ROOT_PASSWORD: secret
+        MYSQL_DATABASE: todos
+volumes:
+  todo-mysql-data:
+
+
+

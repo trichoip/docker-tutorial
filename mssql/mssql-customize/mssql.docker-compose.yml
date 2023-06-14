@@ -1,0 +1,12 @@
+services:
+  db:
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: example_1
+    # image: mcr.microsoft.com/azure-sql-edge:1.0.4
+    image: mcr.microsoft.com/mssql/server
+    ports:
+      - 1435:1433
+    # restart: always 
+         
+       
