@@ -170,3 +170,6 @@ mvn spring-boot:build-image
 host.docker.internal
 
 --legacy-peer-deps
+
+ENV mysql
+MYSQL_TCP_PORT ( The default TCP/IP port number.)
